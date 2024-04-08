@@ -94,7 +94,7 @@ class FrogPilotPlannerd:
       self.safe_obstacle_distance_stock = 0
       self.stopped_equivalence_factor = 0
 
-    stop_distance = STOP_DISTANCE
+    stop_distance = STOP_DISTANCE + self.increased_stopping_distance
 
     if self.CP.openpilotLongitudinalControl:
       self.t_follow = self.update_t_follow(controlsState, frogpilotCarControl, radarState, v_ego, v_lead)
@@ -112,7 +112,7 @@ class FrogPilotPlannerd:
   def update_t_follow(self, controlsState, frogpilotCarControl, radarState, v_ego, v_lead):
     t_follow = get_T_FOLLOW(self.custom_personalities, self.aggressive_follow, self.standard_follow, self.relaxed_follow, controlsState.personality)
 
-    lead_distance = radarState.leadOne.dRel
+    lead_distance = radarState.leadOne.dRel + self.increased_stopping_distance
 
     # Offset by FrogAi for FrogPilot for a more natural takeoff with a lead
     if self.aggressive_acceleration:
@@ -183,3 +183,4 @@ class FrogPilotPlannerd:
     self.acceleration_profile = self.params.get_int("AccelerationProfile") if longitudinal_tune else 0
     self.deceleration_profile = self.params.get_int("DecelerationProfile") if longitudinal_tune else 0
     self.aggressive_acceleration = longitudinal_tune and self.params.get_bool("AggressiveAcceleration")
+    self.increased_stopping_distance = self.params.get_int("StoppingDistance") * (1 if self.is_metric else CV.FOOT_TO_METER) if longitudinal_tune else 0
