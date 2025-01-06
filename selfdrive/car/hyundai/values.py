@@ -21,7 +21,7 @@ class CarControllerParams:
   def __init__(self, CP):
     self.STEER_DELTA_UP = 3
     self.STEER_DELTA_DOWN = 7
-    self.STEER_DRIVER_ALLOWANCE = 50
+    self.STEER_DRIVER_ALLOWANCE = 70
     self.STEER_DRIVER_MULTIPLIER = 2
     self.STEER_DRIVER_FACTOR = 1
     self.STEER_THRESHOLD = 220
@@ -33,7 +33,7 @@ class CarControllerParams:
       self.STEER_DRIVER_MULTIPLIER = 2
       self.STEER_THRESHOLD = 250
       self.STEER_DELTA_UP = 3
-      self.STEER_DELTA_DOWN = 7
+      self.STEER_DELTA_DOWN = 6
 
     # To determine the limit for your car, find the maximum value that the stock LKAS will request.
     # If the max stock LKAS request is <384, add your car to this list.
@@ -46,7 +46,7 @@ class CarControllerParams:
     elif CP.flags & HyundaiFlags.ALT_LIMITS:
       self.STEER_MAX = 404
       self.STEER_DELTA_UP = 3
-      self.STEER_DELTA_DOWN = 7
+      self.STEER_DELTA_DOWN = 6
 
     # Default for most HKG
     else:
